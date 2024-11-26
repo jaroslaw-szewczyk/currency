@@ -76,4 +76,25 @@ describe('Component ResultBox', () => {
       cleanup();
     });
   }
+
+  const testMinusCurrency = [
+    { amount: -160, from: 'PLN', to: 'PLN', result: 'Wrong value...'},
+    { amount: -10000, from: 'PLN', to: 'USD', result: 'Wrong value...'},
+    { amount: -286, from: 'USD', to: 'PLN', result:'Wrong value...'},
+    { amount: -24, from: 'USD', to: 'USD', result: 'Wrong value...'},
+  ];
+
+  for(const minus of testMinusCurrency){
+    it('should render Wrong value... when minus number', () => {
+      //render component
+      render(<ResultBox from={minus.from} to={minus.to} amount={minus.amount} />);
+
+      //find result
+      const resultBox = screen.getByTestId('result-box');
+
+      expect(resultBox).toHaveTextContent('Wrong value...');
+      cleanup();
+    });
+  }
+
 });
